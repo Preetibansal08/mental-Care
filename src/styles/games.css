@@ -1,0 +1,31 @@
+/* Custom animations */
+@keyframes breathe {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+  
+  .breathing-animation {
+    animation: breathe 8s infinite ease-in-out;
+  }
+  
+  /* Custom card flip animation */
+  .card-flip {
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+  
+  .card-flipped {
+    transform: rotateY(180deg);
+  }
+  
+  /* Stroop test color classes */
+  .stroop-red { color: #ef4444; }
+  .stroop-blue { color: #3b82f6; }
+  .stroop-green { color: #22c55e; }
+  .stroop-yellow { color: #eab308; }
+  
+  /* Reaction test transition */
+  .reaction-box {
+    transition: background-color 0.3s ease;
+  }

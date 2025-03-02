@@ -1,0 +1,85 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+const Register = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    // Replace with your API call
+    const response = await fetch("http://localhost:5000/api/auth/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, password }),
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      alert("Registration successful. Please log in.");
+      navigate("/login");
+    } else {
+      alert(data.message || "Registration failed");
+    }
+  };
+
+  return (
+    <div className="flex justify-center items-center h-screen bg-gray-100">
+      <div className="w-full max-w-md p-8 bg-white shadow-lg rounded-xl">
+        <h2 className="text-2xl font-bold text-center mb-6">Register</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label className="block mb-1 font-medium">Name</label>
+            <input
+              type="text"
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block mb-1 font-medium">Email</label>
+            <input
+              type="email"
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block mb-1 font-medium">Password</label>
+            <input
+              type="password"
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
+          >
+            Register
+          </button>
+        </form>
+        <p className="text-center mt-4">
+          Already have an account?{" "}
+          <span
+            className="text-blue-500 cursor-pointer"
+            onClick={() => navigate("/login")}
+          >
+            Login here
+          </span>
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default Register;
